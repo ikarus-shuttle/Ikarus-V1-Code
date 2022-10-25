@@ -6,8 +6,6 @@
 
 IBusBM ibusRc;
 
-HardwareSerial& ibusRcSerial = Serial2;
-HardwareSerial& debugSerial = Serial;
 
 void setup() {
     pinMode(csPin, OUTPUT);
