@@ -12,9 +12,10 @@ HardwareSerial& debugSerial = Serial;
 void setup() {
     pinMode(csPin, OUTPUT);
     //pinMode(csPin2, OUTPUT);
-    pinMode(direction, OUTPUT);
+    pinMode(direction_motor, OUTPUT);
     pinMode(linearmotor_back_open, OUTPUT);
     pinMode(linearmotor_back_close, OUTPUT);
+    pinMode(schweinwerfer_vorne, OUTPUT);
     ibusRc.begin(ibusRcSerial);
     Serial.begin(9600);
     SPI.begin();
@@ -54,7 +55,18 @@ void set_steering_front() {
     block_vorne();
   }
 }
-
+void set_lights(){
+  if (arrayChannel[8]==100){ //Bremsen und Richtungswechsel (it's not a bug it's a feature.) funktioniert mit allen Motorcontrollern
+    digitalWrite(direction_motor, HIGH);
+    delay(1010); //angenährte Zeit, welche der Controller braucht um die Richtung zu wechseln. Dabei sollte so wenig Zeit benötigt werden, damit der Controller nicht eine Geschwindigkeit von 50% erreicht.
+    digitalWrite(direction_motor, LOW);
+    Serial.println("on");
+    }
+    else {
+    digitalWrite(direction_motor, LOW);
+    Serial.println("off");
+    } 
+}
 void get_tgy_data()
 {
   for (byte i = 0; i<10; i++){ //Alle Channels auslesen.
@@ -86,13 +98,13 @@ void set_motor_speed()
 
 void set_brakes(){
   if (arrayChannel[8]==100){ //Bremsen und Richtungswechsel (it's not a bug it's a feature.) funktioniert mit allen Motorcontrollern
-    digitalWrite(direction, HIGH);
+    digitalWrite(direction_motor, HIGH);
     delay(1010); //angenährte Zeit, welche der Controller braucht um die Richtung zu wechseln. Dabei sollte so wenig Zeit benötigt werden, damit der Controller nicht eine Geschwindigkeit von 50% erreicht.
-    digitalWrite(direction, LOW);
+    digitalWrite(direction_motor, LOW);
     Serial.println("on");
     }
     else {
-    digitalWrite(direction, LOW);
+    digitalWrite(direction_motor, LOW);
     Serial.println("off");
     } 
 }
@@ -102,7 +114,7 @@ void loop() {
 
     
   get_tgy_data();
-  
+  set_lights();
   set_motor_speed();
   
   set_steering_front();
