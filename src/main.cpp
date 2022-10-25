@@ -18,6 +18,7 @@ void setup() {
     Serial.begin(9600);
     SPI.begin();
 }
+
 // Read the number of a given channel and convert to the range provided.
 // If the channel is off, return the default value
 int readChannel(byte channelInput, int minLimit, int maxLimit, int defaultValue){
@@ -69,7 +70,7 @@ void get_tgy_data()
 {
   for (byte i = 0; i<10; i++){ //Alle Channels auslesen.
     //int value = readChannel(i, -100, 100, 0);
-    arrayChannel[i] = readChannel(i, -100, 100, 0);
+    arrayChannel[i] = readChannel(i, -100, 100, 0); //Hier werden die Daten der Fernbedienung gespeichert.
     debugSerial.print("Ch");
     debugSerial.print(i + 1);
     debugSerial.print(": ");
@@ -107,7 +108,11 @@ void set_brakes(){
     } 
 }
 
-void set_light(){}
+void set_light(){
+
+}
+
+
 void loop() {
 
     

@@ -63,5 +63,18 @@ int SIM7600E_rx = 10;
 int SIM7600E_tx = 11;
 int SIM7600E_sim = 12;
 
+//Distance Sensor Declaration
+int distance_LV_trig = 40; //links vorne
+int distance_LV_echo = 41;
+int distance_MV_trig = 42; //mitte vorne
+int distance_MV_echo = 43;
+int distance_RV_trig = 44; //rechts vorne
+int distance_RV_echo = 45;
+int distance_LS_trig = 46; //links seite
+int distance_LS_echo = 47;
+int distance_RS_trig = 48; //rechts seite
+int distance_RS_echo = 49;
+int distance_H_trig = 13; //hinten
+int distance_H_echo = 53;
 
 #endif
