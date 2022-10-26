@@ -2,6 +2,9 @@
 #include <SPI.h>
 #include <IBusBM.h>
 #include <pinout.h> //in this File, all the used Pins and used Variables are declared to make the code more clear.
+#include <string.h> // Includes the library for editing Strings.
+#include <distance_sensor.cpp> // Includes the Distance Sensor Class.
+#include <linearmotor.h> // Includes the linearmotor files.
 
 
 IBusBM ibusRc;
@@ -13,7 +16,32 @@ void setup() {
     pinMode(direction_motor, OUTPUT);
     pinMode(linearmotor_back_open, OUTPUT);
     pinMode(linearmotor_back_close, OUTPUT);
+    
+    pinMode(linearmotor_front_open, OUTPUT);
+
+    pinMode(linearmotor_front_close, OUTPUT);
+    pinMode(linearmotor_cargo_open, OUTPUT);
+    pinMode(linearmotor_cargo_close, OUTPUT);
+    pinMode(linearmotor_cargosmall_open, OUTPUT);
+    pinMode(linearmotor_cargosmall_close, OUTPUT);
+    pinMode(poti_steering_front, INPUT);
+    pinMode(poti_steering_back, INPUT);
     pinMode(schweinwerfer_vorne, OUTPUT);
+
+    pinMode(led_back_right, OUTPUT);
+    pinMode(led_back_left, OUTPUT);
+    pinMode(led_front, OUTPUT);
+    pinMode(led_cargo, OUTPUT);
+    pinMode(voltage_battery, INPUT);
+    pinMode(ampere_battery, INPUT);
+
+    pinMode(solenoid_lock, OUTPUT);
+    pinMode(alarm, OUTPUT);
+    pinMode(MPU6050_int, OUTPUT);
+    pinMode(MPU6050_sda, OUTPUT);
+    pinMode(MPU6050_scl, OUTPUT);
+  
+
     ibusRc.begin(ibusRcSerial);
     Serial.begin(9600);
     SPI.begin();
@@ -28,11 +56,7 @@ int readChannel(byte channelInput, int minLimit, int maxLimit, int defaultValue)
   return map(ch, 1000, 2000, minLimit, maxLimit);
 }
 
-void turnleft_vorne() {
-  digitalWrite(linearmotor_back_open, HIGH); //Weil der Motor an der Linken Seite befestigt wird.
-  digitalWrite(linearmotor_back_close, LOW); 
-  Serial.println("turning left.");
-}
+
 void turnright_vorne(){
   digitalWrite(linearmotor_back_open, LOW); //Weil der Motor an der Linken Seite befestigt wird.
   digitalWrite(linearmotor_back_close, HIGH);
@@ -54,6 +78,8 @@ void set_steering_front() {
     block_vorne();
   }
 }
+
+/*
 void set_lights(){
   if (arrayChannel[8]==100){ //Bremsen und Richtungswechsel (it's not a bug it's a feature.) funktioniert mit allen Motorcontrollern
     digitalWrite(direction_motor, HIGH);
@@ -66,6 +92,7 @@ void set_lights(){
     Serial.println("off");
     } 
 }
+*/
 void get_tgy_data()
 {
   for (byte i = 0; i<10; i++){ //Alle Channels auslesen.
@@ -117,14 +144,27 @@ void loop() {
 
     
   get_tgy_data();
-  set_lights();
+  //set_lights();
   set_motor_speed();
-  
+
   set_steering_front();
 
   set_brakes();
   
-   
+    Distancesensor vornelinks;
+    Distancesensor vornemitte;
+    Distancesensor VorneRechts;
+    Distancesensor MitteLinks;
+    Distancesensor MitteRechts;
+    Distancesensor Hinten;
+    vornelinks.echoPin = 41;
+    vornelinks.triggerPin = 40;
+    vornelinks.name ="vornelinks";
+    vornelinks.checkdistance();
+    vornemitte.echoPin = 39;
+    vornemitte.triggerPin = 38;
+    vornemitte.name ="vornerechts";
+    vornemitte.checkdistance();
 
 }
 
