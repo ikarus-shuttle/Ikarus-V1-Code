@@ -1,13 +1,9 @@
 /* This code works with JSN SR04 T ultrasound module
  * It measures the distance and shows it on the Serial monitor
- * Refer to www.SurtrTech. com or SurtrTech YT channel for more informations 
  */
-/*
+
 #include <Arduino.h>
 #include <string.h>
-//module one
-//#define TRIG_LV 38 //Module pins
-//#define ECHO_LV 39 
 
 class Distancesensor
 {
@@ -38,35 +34,11 @@ class Distancesensor
         Serial.print(distance);
         Serial.println("cm");
 
-        delay(50);
+        delay(50); //change to timer.
     }
 };
 
     
 
-void setup() { 
-   Serial.begin(9600);
-
-    
-}
-
-void loop() {
-    Distancesensor vornelinks;
-    Distancesensor vornemitte;
-    Distancesensor VorneRechts;
-    Distancesensor MitteLinks;
-    Distancesensor MitteRechts;
-    Distancesensor Hinten;
-    vornelinks.echoPin = 41;
-    vornelinks.triggerPin = 40;
-    vornelinks.name ="vornelinks";
-    vornelinks.checkdistance();
-    vornemitte.echoPin = 39;
-    vornemitte.triggerPin = 38;
-    vornemitte.name ="vornerechts";
-    vornemitte.checkdistance();
-    
-}
 
 
-*/
