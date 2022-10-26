@@ -43,7 +43,7 @@ int ampere_battery = A1;
 
 //internal Systems
 int solenoid_lock = 2;
-int alarm = 3;
+int alarm = 5;
 
 //Gyroscope Declaration
 int MPU6050_int = 4;

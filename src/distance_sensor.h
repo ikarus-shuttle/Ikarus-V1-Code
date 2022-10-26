@@ -1,7 +1,8 @@
 /* This code works with JSN SR04 T ultrasound module
  * It measures the distance and shows it on the Serial monitor
  */
-
+#ifndef distance_sensor_h
+#define distance_sensor_h
 #include <Arduino.h>
 #include <string.h>
 
@@ -38,7 +39,8 @@ class Distancesensor
     }
 };
 
-    
+#endif
+
 
 
 
