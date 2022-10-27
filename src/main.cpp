@@ -7,8 +7,18 @@
 #include <linearmotor.h> // Includes the linearmotor files.
 #include <hubmotor.h> // Includes the files for controlling the motors.
 #include <remote.h> // Includes the files for working with the Remote.
+#include <Adafruit_NeoPixel.h>
 
+#ifdef __AVR__  // Adafruit Neopixel needs this code (i guess).
+#include <avr/power.h> // Required for 16 MHz Adafruit Trinket
+#endif
+
+//call the diffrent classes.
 IBusBM ibusRc;
+Adafruit_NeoPixel strip_front(led_front_num, led_front, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip_back_left(led_back_left_num, led_back_left, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip_back_right(led_back_right_num, led_back_right, NEO_GRB + NEO_KHZ800);
+
 
 /* //Removed due to incomplete class files.
 Distancesensor LV;
@@ -58,7 +68,7 @@ void setup() {
     pinMode(linearmotor_cargosmall_close, OUTPUT);
     pinMode(poti_steering_front, INPUT);
     pinMode(poti_steering_back, INPUT);
-    pinMode(schweinwerfer_vorne, OUTPUT);
+    pinMode(scheinwerfer_vorne, OUTPUT);
 
     pinMode(led_back_right, OUTPUT);
     pinMode(led_back_left, OUTPUT);
@@ -91,26 +101,67 @@ void setup() {
     SPI.begin();
     //SPI.transfer(0x00);
     SPI.transfer(0); // Den Motor abschalten
+
+    //initialize Led strips.
+    strip_front.begin();
+    strip_back_left.begin();
+    strip_back_right.begin();
 }
 
 
 
 
 void set_lights(){
-  if (arrayChannel[5]==100){ 
-    digitalWrite(schweinwerfer_vorne, LOW);
+  if (arrayChannel[5]==100){  //Down-state
+    digitalWrite(scheinwerfer_vorne, LOW);
     Serial.println("Lights off");
-  }
-  else if (arrayChannel[5]==0)
-  {
+    for(int i=0; i<led_front_num; i++) { 
     //do blinkers or sthg.
     //digitalWrite();
+    strip_front.clear(); //switch all the Lights off.
+    strip_back_left.clear(); //
+    strip_back_right.clear();
+    strip_front.show(); //switch all the Lights on.
+    strip_back_left.show(); 
+    strip_back_right.show(); 
     Serial.println("lights blinking");
+    }
+
+  }
+  else if (arrayChannel[5]==0) //Mid-state
+  {
+    for(int i=0; i<led_front_num; i++) { 
+    //do blinkers or sthg.
+    //digitalWrite();
+    strip_front.clear(); //switch all the Lights off.
+    strip_back_left.clear(); //
+    strip_back_right.clear();
+    //strip_front.setPixelColor(i, strip_front.Color(0, 0, 0));
+    //strip_back_left.setPixelColor(i, strip_back_left.Color(0, 0, 0));
+    //strip_back_right.setPixelColor(i, strip_back_right.Color(0, 0, 0));
+    strip_front.show(); //switch all the Lights on.
+    strip_back_left.show(); 
+    strip_back_right.show(); 
+    Serial.println("lights blinking");
+    }
   }
   
-  else {
-  digitalWrite(schweinwerfer_vorne, HIGH);
+  else { //Upstate
+  digitalWrite(scheinwerfer_vorne, HIGH);
   Serial.println("lights on");
+  //engage all strips (front part is white, while the back part is red.)
+  for(int i=0; i<led_front_num; i++) { // For each pixel...
+
+    // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
+    // Here we're using a moderately bright green color:
+    strip_front.setPixelColor(i, strip_front.Color(255, 160, 255));
+    strip_back_left.setPixelColor(i, strip_back_left.Color(255, 0, 0));
+    strip_back_right.setPixelColor(i, strip_back_right.Color(255, 0, 0));
+
+    strip_front.show(); //switch all the Lights on.
+    strip_back_left.show(); 
+    strip_back_right.show();   // Send the updated pixel colors to the hardware.
+  }
   } 
 }
 
@@ -118,7 +169,7 @@ void set_lights(){
 void set_alarm() {
   if (arrayChannel[7]==100){ 
     digitalWrite(alarm, HIGH);
-    digitalWrite(schweinwerfer_vorne, LOW);
+    digitalWrite(scheinwerfer_vorne, LOW);
     Serial.println("Alarm on");
     }
     else {
@@ -135,7 +186,7 @@ void loop() {
   set_motor_speed();
 
   set_steering_front();
-
+  set_cargo_bay();
   set_brakes();
   set_alarm();
 

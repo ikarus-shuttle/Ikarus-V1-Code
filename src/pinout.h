@@ -31,13 +31,18 @@ int poti_steering_front = A2;
 int poti_steering_back = A3;
 
 //Beleuchtung
-int schweinwerfer_vorne = 3;
-int led_back_right = 28;
-int led_back_left = 29;
-int led_front = 30;
-int led_cargo = 31;
+int scheinwerfer_vorne = 3;
+int led_back_right = 29;
+int led_back_left = 30;
+int led_front = 31;
+int led_cargo = 28;
 
-//Battery Compartiment
+int led_back_right_num = 23;
+int led_back_left_num = 24;
+int led_front_num = 80; // ungefähr 80 LEDs.
+
+
+// Battery Compartiment
 int voltage_battery = A0;
 int ampere_battery = A1;
 
