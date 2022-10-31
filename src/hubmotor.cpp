@@ -3,7 +3,7 @@
 void set_motor_speed()
 {
    //allMotors
-  current_motor_speed = map(arrayChannel[2],100,-80,0,128); //Auslesen der Daten an Channel 3.
+  current_motor_speed = map(arrayChannel[2],100,-40,0,128); //Auslesen der Daten an Channel 3.
   digitalWrite(csPin, LOW);
   
   //SPI.transfer(0x00);

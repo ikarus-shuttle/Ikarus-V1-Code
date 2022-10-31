@@ -53,13 +53,14 @@ void block_cargo(){
 }
 
 void set_cargo_bay() { //insert the real cargobay pins
-  if (arrayChannel[0] > 10) { // !!!
+  if (arrayChannel[4] == -100) { // !!!
     open_cargo_bay();
   }
-  else if (arrayChannel[0] <-10) {
+  else if (arrayChannel[4] == 100) {
     close_cargo_bay();
   }
   else{
     block_cargo();
   }
+  
 }

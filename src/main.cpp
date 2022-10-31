@@ -130,20 +130,23 @@ void set_lights(){
   }
   else if (arrayChannel[5]==0) //Mid-state
   {
-    for(int i=0; i<led_front_num; i++) { 
+    for(int i=0; i<80; i++) { 
     //do blinkers or sthg.
     //digitalWrite();
-    strip_front.clear(); //switch all the Lights off.
-    strip_back_left.clear(); //
-    strip_back_right.clear();
-    //strip_front.setPixelColor(i, strip_front.Color(0, 0, 0));
-    //strip_back_left.setPixelColor(i, strip_back_left.Color(0, 0, 0));
-    //strip_back_right.setPixelColor(i, strip_back_right.Color(0, 0, 0));
+    //strip_front.clear(); //switch all the Lights off.
+    //strip_back_left.clear(); //
+    //strip_back_right.clear();
+    strip_front.setPixelColor(i, strip_front.Color(220, 150, 0));
+    strip_back_left.setPixelColor(i, strip_back_left.Color(220, 150, 0));
+    strip_back_right.setPixelColor(i, strip_back_right.Color(220, 150, 0));
     strip_front.show(); //switch all the Lights on.
     strip_back_left.show(); 
     strip_back_right.show(); 
-    Serial.println("lights blinking");
+    //Serial.println("lights blinking");
     }
+    strip_front.clear(); //switch all the Lights off.
+    strip_back_left.clear(); //
+    strip_back_right.clear();
   }
   
   else { //Upstate
@@ -154,9 +157,10 @@ void set_lights(){
 
     // pixels.Color() takes RGB values, from 0,0,0 up to 255,255,255
     // Here we're using a moderately bright green color:
-    strip_front.setPixelColor(i, strip_front.Color(255, 160, 255));
+    
     strip_back_left.setPixelColor(i, strip_back_left.Color(255, 0, 0));
     strip_back_right.setPixelColor(i, strip_back_right.Color(255, 0, 0));
+    strip_front.setPixelColor(i, strip_front.Color(255, 160, 255));
 
     strip_front.show(); //switch all the Lights on.
     strip_back_left.show(); 
@@ -182,12 +186,12 @@ void set_alarm() {
 void loop() {
 
   get_tgy_data();
-  set_lights();
+  //set_lights();
   set_motor_speed();
 
   set_steering_front();
   set_cargo_bay();
-  set_brakes();
+  //set_brakes();
   set_alarm();
 
 }

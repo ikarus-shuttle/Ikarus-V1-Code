@@ -10,6 +10,10 @@ int arrayChannel[10];
 HardwareSerial& ibusRcSerial = Serial2; //Pin 17
 HardwareSerial& debugSerial = Serial; //Pin 0, Pin 1
 
+// millis timers
+unsigned long previousMillis = 0; 
+const long interval = 1000; 
+
 //HUB-Motor Steering
 int direction_motor = 27;
 //all Variables
@@ -81,5 +85,7 @@ int distance_RS_trig = 48; //rechts seite
 int distance_RS_echo = 49;
 int distance_H_trig = 13; //hinten
 int distance_H_echo = 53;
+
+
 
 #endif
