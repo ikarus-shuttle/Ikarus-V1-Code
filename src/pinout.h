@@ -16,6 +16,7 @@ const long interval = 1000;
 
 //HUB-Motor Steering
 int direction_motor = 27;
+int brakes_motor = 26;
 //all Variables
 int current_motor_speed;
 int current_motor_speed2; 

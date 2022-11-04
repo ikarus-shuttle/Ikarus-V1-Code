@@ -56,6 +56,7 @@ void setup() {
     pinMode(csPin, OUTPUT);
     //pinMode(csPin2, OUTPUT);
     pinMode(direction_motor, OUTPUT);
+    pinMode(brakes_motor, OUTPUT);
     pinMode(linearmotor_back_open, OUTPUT);
     pinMode(linearmotor_back_close, OUTPUT);
     
@@ -192,14 +193,14 @@ void set_alarm() {
 
 void loop() {
 
-  get_tgy_data();
-  set_lights();
-  set_motor_speed();
-
-  set_steering_front();
-  set_cargo_bay();
-  //set_brakes();
-  set_alarm();
+  get_tgy_data(); //Fernbedienung auslesen.
+  set_lights(); //Scheinwerfer und Neopixel einstellen.
+  set_motor_speed(); //Geschwindigkeit einstellen.
+  set_steering_front(); //Linearmotor vorne anhand der Eingabe einstellen.
+  set_cargo_bay(); //Linearmotor Cargo Bay anhand der Eingabe einstellen.
+  set_brakes(); //Bremsen aktiveren oder deaktivieren.
+  set_direction(); //Richtung einstellen oder umpolen.
+  set_alarm(); //Hupe aktivieren oder deaktiveren.
 
 }
 

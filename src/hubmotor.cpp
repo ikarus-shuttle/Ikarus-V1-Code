@@ -15,15 +15,24 @@ void set_motor_speed()
   Serial.println(current_motor_speed);
 }
 
-void set_brakes(){
-  if (arrayChannel[8]==100){ //Bremsen und Richtungswechsel (it's not a bug it's a feature.) funktioniert mit allen Motorcontrollern
+void set_direction(){
+  if (arrayChannel[8]==100){ //Umpolungsschalter an oder aus. 
     digitalWrite(direction_motor, HIGH);
-    delay(1010); //angenährte Zeit, welche der Controller braucht um die Richtung zu wechseln. Dabei sollte so wenig Zeit benötigt werden, damit der Controller nicht eine Geschwindigkeit von 50% erreicht.
-    digitalWrite(direction_motor, LOW);
-    Serial.println("on");
+    Serial.println("Backward");
     }
     else {
     digitalWrite(direction_motor, LOW);
-    Serial.println("off");
+    Serial.println("Forward");
+    } 
+}
+
+void set_brakes(){
+  if (arrayChannel[8]==100){ //Bremsen 
+    digitalWrite(brakes_motor, HIGH);
+    Serial.println("Breaks Engaged");
+    }
+    else {
+    digitalWrite(direction_motor, LOW);
+    Serial.println("Breaks Disengaged");
     } 
 }

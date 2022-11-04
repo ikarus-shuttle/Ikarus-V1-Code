@@ -8,8 +8,10 @@ extern int current_motor_speed;
 extern int arrayChannel[10];
 extern int csPin;
 extern int direction_motor;
+extern int brakes_motor;
 void set_motor_speed();
 void set_brakes();
+void set_direction();
 
 
 #endif
