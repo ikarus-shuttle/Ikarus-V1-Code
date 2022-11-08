@@ -16,7 +16,7 @@ void set_motor_speed()
 }
 
 void set_direction(){
-  if (arrayChannel[8]==100){ //Umpolungsschalter an oder aus. 
+  if (arrayChannel[9]==100){ //Umpolungsschalter an oder aus. 
     digitalWrite(direction_motor, HIGH);
     Serial.println("Backward");
     }
