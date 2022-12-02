@@ -116,7 +116,7 @@ void set_lights(){
   if (arrayChannel[5]==100){  //Down-state
     digitalWrite(scheinwerfer_vorne, LOW);
     Serial.println("Lights off");
-    /*
+    
     for(int i=0; i<led_front_num; i++) { 
     //do blinkers or sthg.
     //digitalWrite();
@@ -129,11 +129,11 @@ void set_lights(){
     Serial.println("lights blinking");
     
     }
-    */
+    
   }
   else if (arrayChannel[5]==0) //Mid-state
   {
-    /*
+    
     for(int i=0; i<80; i++) { 
     //do blinkers or sthg.
     //digitalWrite();
@@ -151,13 +151,13 @@ void set_lights(){
     strip_front.clear(); //switch all the Lights off.
     strip_back_left.clear(); //
     strip_back_right.clear();
-    */
+    
   }
   
   else { //Upstate
   digitalWrite(scheinwerfer_vorne, HIGH);
   Serial.println("lights on");
-  /*
+  
   //engage all strips (front part is white, while the back part is red.)
   for(int i=0; i<led_front_num; i++) { // For each pixel...
 
@@ -172,7 +172,7 @@ void set_lights(){
     strip_back_left.show(); 
     strip_back_right.show();   // Send the updated pixel colors to the hardware.
   }
-  */
+  
   } 
   
 }
